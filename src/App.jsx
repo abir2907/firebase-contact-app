@@ -2,7 +2,7 @@ import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
-    <div>
+    <div className="mx-auto max-w-[370px]">
       <Navbar />
     </div>
   );
