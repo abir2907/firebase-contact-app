@@ -1,5 +1,11 @@
+import Navbar from "./components/Navbar";
+
 const App = () => {
-  return <div className="flex justify-items-stretch bg-red-500">App</div>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 };
 
 export default App;
