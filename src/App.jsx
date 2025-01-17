@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
-import Modal from "./components/Modal";
 import AddAndUpdateContact from "./components/AddAndUpdateContact";
 
 const App = () => {
