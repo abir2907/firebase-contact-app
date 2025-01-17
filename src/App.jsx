@@ -2,11 +2,12 @@ import Navbar from "./components/Navbar";
 import { FiSearch } from "react-icons/fi";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
 import AddAndUpdateContact from "./components/AddAndUpdateContact";
 import useDisclouse from "./hooks/useDisclouse";
+import { ToastContainer, toast } from "react-toastify";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -59,6 +60,7 @@ const App = () => {
         </div>
       </div>
       <AddAndUpdateContact isOpen={isOpen} onClose={onClose} />
+      <ToastContainer position="bottom-center" />
     </>
   );
 };
