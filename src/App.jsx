@@ -7,7 +7,8 @@ import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
 import AddAndUpdateContact from "./components/AddAndUpdateContact";
 import useDisclouse from "./hooks/useDisclouse";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import NotFoundContact from "./components/NotFoundContact";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -78,9 +79,13 @@ const App = () => {
         </div>
 
         <div className="mt-4 flex flex-col gap-3">
-          {contacts.map((contact) => (
-            <ContactCard key={contact.id} contact={contact} />
-          ))}
+          {contacts.length <= 0 ? (
+            <NotFoundContact />
+          ) : (
+            contacts.map((contact) => (
+              <ContactCard key={contact.id} contact={contact} />
+            ))
+          )}
         </div>
       </div>
       <AddAndUpdateContact isOpen={isOpen} onClose={onClose} />
