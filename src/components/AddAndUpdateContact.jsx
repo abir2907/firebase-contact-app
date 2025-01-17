@@ -5,7 +5,10 @@ const AddAndUpdateContact = ({ isOpen, onClose }) => {
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <Formik>
+        <Formik
+          initialValues={{ name: "", email: "" }}
+          onSubmit={(values) => console.log(values)}
+        >
           <Form className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">
               <label htmlFor="name">Name</label>
@@ -16,7 +19,10 @@ const AddAndUpdateContact = ({ isOpen, onClose }) => {
               <Field name="email" className="h-10 border" />
             </div>
 
-            <button className="self-end border bg-orange px-3 py-1.5">
+            <button
+              type="submit"
+              className="self-end border bg-orange px-3 py-1.5"
+            >
               Add Contact
             </button>
           </Form>
