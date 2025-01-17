@@ -2,28 +2,29 @@ import Navbar from "./components/Navbar";
 import { FiSearch } from "react-icons/fi";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "./config/firebase";
 import ContactCard from "./components/ContactCard";
 import AddAndUpdateContact from "./components/AddAndUpdateContact";
+import useDisclouse from "./hooks/useDisclouse";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
 
-  const [isOpen, setOpen] = useState(false);
-
-  const onOpen = () => setOpen(true);
-  const onClose = () => setOpen(false);
+  const { isOpen, onClose, onOpen } = useDisclouse();
 
   useEffect(() => {
     const getContacts = async () => {
       try {
         const contactsRef = collection(db, "contacts");
-        const contactsSnapshot = await getDocs(contactsRef);
-        const contactLists = contactsSnapshot.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() };
+
+        onSnapshot(contactsRef, (snapshot) => {
+          const contactLists = snapshot.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() };
+          });
+          setContacts(contactLists);
+          return contactLists;
         });
-        setContacts(contactLists);
       } catch (error) {
         console.error(error);
       }

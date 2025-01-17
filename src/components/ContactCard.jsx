@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
 
-import { collection, deleteDoc } from "firebase/firestore";
+import { deleteDoc } from "firebase/firestore";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { IoMdTrash } from "react-icons/io";
 import { RiEditCircleLine } from "react-icons/ri";
 import { db } from "../config/firebase";
 import { doc } from "firebase/firestore";
+import AddAndUpdateContact from "./AddAndUpdateContact";
+import useDisclouse from "../hooks/useDisclouse";
 
 const ContactCard = ({ contact }) => {
+  const { isOpen, onClose, onOpen } = useDisclouse();
+
   const deleteContact = async (id) => {
     try {
       await deleteDoc(doc(db, "contacts", id));
@@ -30,13 +34,19 @@ const ContactCard = ({ contact }) => {
           </div>
         </div>
         <div className="flex text-3xl">
-          <RiEditCircleLine className="cursor-pointer" />
+          <RiEditCircleLine onClick={onOpen} className="cursor-pointer" />
           <IoMdTrash
             onClick={() => deleteContact(contact.id)}
             className="cursor-pointer text-orange"
           />
         </div>
       </div>
+      <AddAndUpdateContact
+        contact={contact}
+        isUpdate
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </>
   );
 };
